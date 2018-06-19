@@ -1,0 +1,222 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.fabio.iotenis.MainActivity$PlaceholderFragment">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="285dp"
+        android:layout_height="123dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+        <TextView
+            android:id="@+id/maxText_motor2"
+            android:layout_width="56dp"
+            android:layout_height="36dp"
+            android:ems="10"
+            android:inputType="number"
+            android:text="@string/_100"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/curpercent_motor2"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_motor2"
+            android:layout_width="83dp"
+            android:layout_height="94dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="80dp"
+            android:layout_marginTop="4dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@+id/curpercent_motor2_text"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/curpercent_motor2_text"
+            android:layout_width="39dp"
+            android:layout_height="16dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="80dp"
+            android:text="@string/_0"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <SeekBar
+            android:id="@+id/curpercent_motor2"
+            android:layout_width="189dp"
+            android:layout_height="24dp"
+            android:layout_alignStart="@+id/curpercent_motor2_text"
+            android:layout_below="@+id/curpercent_motor2_text"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="48dp"
+            android:max="100"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@+id/image_motor2"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:targetApi="o" />
+
+        <TextView
+            android:id="@+id/minText_motor2"
+            android:layout_width="36dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="104dp"
+            android:ems="10"
+            android:inputType="number"
+            android:text="@string/_0"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/curpercent_motor2"
+            app:layout_constraintEnd_toStartOf="@+id/maxText_motor2" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="227dp"
+        android:layout_height="107dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/maxAngle"
+            android:layout_width="49dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="172dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/_45"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/minAngle" />
+
+        <SeekBar
+            android:id="@+id/angleSeekBar"
+            android:layout_width="193dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:max="@string/_45"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/minAngle"
+            android:layout_width="49dp"
+            android:layout_height="33dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/_0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/cur_angle"
+            android:layout_width="49dp"
+            android:layout_height="29dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/_0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/maxAngle"
+            app:layout_constraintStart_toEndOf="@+id/minAngle" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="285dp"
+        android:layout_height="123dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25">
+
+        <TextView
+            android:id="@+id/maxText_motor1"
+            android:layout_width="57dp"
+            android:layout_height="33dp"
+            android:ems="10"
+            android:inputType="none"
+            android:text="@string/_100"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/curpercent_motor1"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_motor1"
+            android:layout_width="83dp"
+            android:layout_height="94dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="72dp"
+            android:layout_marginTop="12dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@+id/curpercent_motor1_text"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/curpercent_motor1_text"
+            android:layout_width="39dp"
+            android:layout_height="16dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="28dp"
+            android:layout_marginEnd="88dp"
+            android:text="@string/_0"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <SeekBar
+            android:id="@+id/curpercent_motor1"
+            android:layout_width="191dp"
+            android:layout_height="22dp"
+            android:layout_alignStart="@+id/curpercent_motor1_text"
+            android:layout_below="@+id/curpercent_motor1_text"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="48dp"
+            android:max="100"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@+id/image_motor1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:targetApi="o" />
+
+        <TextView
+            android:id="@+id/minText_motor1"
+            android:layout_width="36dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="100dp"
+            android:ems="10"
+            android:inputType="number"
+            android:text="@string/_0"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/curpercent_motor1"
+            app:layout_constraintEnd_toStartOf="@+id/maxText_motor1" />
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>
