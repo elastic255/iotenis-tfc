@@ -12,7 +12,7 @@ library/ssl_lib.o: \
  /home/fabio/esp/esp-idf/components/openssl/include/internal/ssl_cert.h \
  /home/fabio/esp/esp-idf/components/openssl/include/internal/ssl_dbg.h \
  /home/fabio/esp/esp-idf/components/openssl/include/platform/ssl_opt.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/openssl/include/platform/ssl_port.h \
  /home/fabio/esp/esp-idf/components/esp32/include/esp_types.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/cdefs.h \
@@ -70,7 +70,7 @@ library/ssl_lib.o: \
 
 /home/fabio/esp/esp-idf/components/openssl/include/platform/ssl_opt.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/openssl/include/platform/ssl_port.h:
 

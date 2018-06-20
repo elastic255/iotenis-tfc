@@ -21,7 +21,7 @@ wifi_internal.o: \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/fabio/esp/esp-idf/components/newlib/include/alloca.h \
  /home/fabio/esp/esp-idf/components/heap/include/multi_heap.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h
 
 /home/fabio/esp/esp-idf/components/esp32/include/esp_attr.h:
 
@@ -65,5 +65,5 @@ wifi_internal.o: \
 
 /home/fabio/esp/esp-idf/components/heap/include/multi_heap.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 /home/fabio/esp/esp-idf/components/esp32/./wifi_internal.c:

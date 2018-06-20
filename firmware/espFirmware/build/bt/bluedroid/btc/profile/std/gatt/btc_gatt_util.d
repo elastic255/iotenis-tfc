@@ -30,7 +30,7 @@ bluedroid/btc/profile/std/gatt/btc_gatt_util.o: \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/bta/include/bta_gatt_api.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/bta/include/bta_api.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/include/bt_target.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/stack/include/dyn_mem.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h \
  /home/fabio/esp/esp-idf/components/log/include/esp_log.h \
@@ -175,7 +175,7 @@ bluedroid/btc/profile/std/gatt/btc_gatt_util.o: \
 
 /home/fabio/esp/esp-idf/components/bt/bluedroid/include/bt_target.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/bt/bluedroid/stack/include/dyn_mem.h:
 

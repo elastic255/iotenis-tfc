@@ -1,7 +1,7 @@
 bluedroid/device/controller.o: \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/device/controller.c \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/newlib/include/stdio.h \
  /home/fabio/esp/esp-idf/components/newlib/include/_ansi.h \
  /home/fabio/esp/esp-idf/components/newlib/include/newlib.h \
@@ -117,7 +117,7 @@ bluedroid/device/controller.o: \
 
 /home/fabio/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/stdio.h:
 

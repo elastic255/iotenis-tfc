@@ -25,7 +25,7 @@ bluedroid/hci/hci_layer.o: \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/sched.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/stdio.h \
  /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/newlib/include/stdlib.h \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/fabio/esp/esp-idf/components/newlib/include/alloca.h \
@@ -167,7 +167,7 @@ bluedroid/hci/hci_layer.o: \
 
 /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/stdlib.h:
 

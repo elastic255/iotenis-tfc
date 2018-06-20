@@ -24,7 +24,7 @@ task_wdt.o: /home/fabio/esp/esp-idf/components/esp32/./task_wdt.c \
  /home/fabio/esp/esp-idf/components/newlib/include/alloca.h \
  /home/fabio/esp/esp-idf/components/newlib/include/string.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/string.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h \
  /home/fabio/esp/esp-idf/components/esp32/include/xtensa/hal.h \
@@ -141,7 +141,7 @@ task_wdt.o: /home/fabio/esp/esp-idf/components/esp32/./task_wdt.c \
 
 /home/fabio/esp/esp-idf/components/newlib/include/sys/string.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h:
 

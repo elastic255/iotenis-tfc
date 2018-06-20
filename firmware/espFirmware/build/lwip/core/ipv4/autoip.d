@@ -31,7 +31,7 @@ core/ipv4/autoip.o: \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/stat.h \
  /home/fabio/esp/esp-idf/components/vfs/include/sys/ioctl.h \
  /home/fabio/esp/esp-idf/components/esp32/include/esp_task.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/esp32/include/esp_system.h \
  /home/fabio/esp/esp-idf/components/newlib/include/stdint.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/_intsup.h \
@@ -163,7 +163,7 @@ core/ipv4/autoip.o: \
 
 /home/fabio/esp/esp-idf/components/esp32/include/esp_task.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/esp32/include/esp_system.h:
 

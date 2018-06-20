@@ -11,7 +11,7 @@ src/option/syscall.o: \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/syslimits.h \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/endian.h \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/param.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/reent.h \
  /home/fabio/esp/esp-idf/components/newlib/include/_ansi.h \
@@ -107,7 +107,7 @@ src/option/syscall.o: \
 
 /home/fabio/esp/esp-idf/components/newlib/include/machine/param.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h:
 

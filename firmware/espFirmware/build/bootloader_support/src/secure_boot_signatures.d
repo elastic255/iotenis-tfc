@@ -1,6 +1,6 @@
 src/secure_boot_signatures.o: \
  /home/fabio/esp/esp-idf/components/bootloader_support/src/secure_boot_signatures.c \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/bootloader_support/include_priv/bootloader_flash.h \
  /home/fabio/esp/esp-idf/components/newlib/include/stdint.h \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/_default_types.h \
@@ -46,7 +46,7 @@ src/secure_boot_signatures.o: \
  /home/fabio/esp/esp-idf/components/esp32/include/rom/sha.h \
  /home/fabio/esp/esp-idf/components/esp32/include/esp_types.h
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/bootloader_support/include_priv/bootloader_flash.h:
 

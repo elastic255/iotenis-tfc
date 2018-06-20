@@ -27,7 +27,7 @@ bt.o: /home/fabio/esp/esp-idf/components/bt/./bt.c \
  /home/fabio/esp/esp-idf/components/newlib/include/stdint.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/newlib/include/assert.h \
  /home/fabio/esp/esp-idf/components/heap/include/esp_heap_caps.h \
  /home/fabio/esp/esp-idf/components/heap/include/multi_heap.h \
@@ -155,7 +155,7 @@ bt.o: /home/fabio/esp/esp-idf/components/bt/./bt.c \
 
 /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/assert.h:
 

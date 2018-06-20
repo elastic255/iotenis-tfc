@@ -1,7 +1,7 @@
 libsodium/src/libsodium/crypto_secretbox/crypto_secretbox_easy.o: \
  /home/fabio/esp/esp-idf/components/libsodium/libsodium/src/libsodium/crypto_secretbox/crypto_secretbox_easy.c \
  /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/newlib/include/stdlib.h \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/ieeefp.h \
  /home/fabio/esp/esp-idf/components/newlib/include/_ansi.h \
@@ -40,7 +40,7 @@ libsodium/src/libsodium/crypto_secretbox/crypto_secretbox_easy.o: \
 
 /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/stdlib.h:
 

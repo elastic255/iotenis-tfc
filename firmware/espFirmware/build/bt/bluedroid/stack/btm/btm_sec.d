@@ -20,7 +20,7 @@ bluedroid/stack/btm/btm_sec.o: \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/device/include/controller.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/include/bt_target.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/stack/include/dyn_mem.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h \
  /home/fabio/esp/esp-idf/components/newlib/include/stdio.h \
@@ -175,7 +175,7 @@ bluedroid/stack/btm/btm_sec.o: \
 
 /home/fabio/esp/esp-idf/components/bt/bluedroid/include/bt_target.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/bt/bluedroid/stack/include/dyn_mem.h:
 

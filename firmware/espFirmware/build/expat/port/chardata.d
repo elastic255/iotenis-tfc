@@ -2,7 +2,7 @@ port/chardata.o: /home/fabio/esp/esp-idf/components/expat/port/chardata.c \
  /home/fabio/esp/esp-idf/components/expat/include/expat/expat_config.h \
  /home/fabio/esp/esp-idf/components/expat/port/include/minicheck.h \
  /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/newlib/include/stdlib.h \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/ieeefp.h \
  /home/fabio/esp/esp-idf/components/newlib/include/_ansi.h \
@@ -37,7 +37,7 @@ port/chardata.o: /home/fabio/esp/esp-idf/components/expat/port/chardata.c \
 
 /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/stdlib.h:
 

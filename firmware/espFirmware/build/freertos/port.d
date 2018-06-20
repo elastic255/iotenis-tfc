@@ -25,7 +25,7 @@ port.o: /home/fabio/esp/esp-idf/components/freertos/./port.c \
  /home/fabio/esp/esp-idf/components/esp32/include/xtensa/config/system.h \
  /home/fabio/esp/esp-idf/components/esp32/include/xtensa/simcall.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/xtensa_context.h \
  /home/fabio/esp/esp-idf/components/esp32/include/xtensa/xtruntime-frames.h \
@@ -137,7 +137,7 @@ port.o: /home/fabio/esp/esp-idf/components/freertos/./port.c \
 
 /home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h:
 

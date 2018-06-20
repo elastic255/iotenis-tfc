@@ -27,7 +27,7 @@ ulp_macro.o: /home/fabio/esp/esp-idf/components/ulp/./ulp_macro.c \
  /home/fabio/esp/esp-idf/components/newlib/include/stdint.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/newlib/include/assert.h \
  /home/fabio/esp/esp-idf/components/log/include/esp_log.h \
  /home/fabio/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
@@ -95,7 +95,7 @@ ulp_macro.o: /home/fabio/esp/esp-idf/components/ulp/./ulp_macro.c \
 
 /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/assert.h:
 

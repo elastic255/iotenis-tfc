@@ -27,7 +27,7 @@ pm_locks.o: /home/fabio/esp/esp-idf/components/esp32/./pm_locks.c \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/sched.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/stdio.h \
  /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/newlib/include/assert.h \
  /home/fabio/esp/esp-idf/components/esp32/include/esp32/pm.h \
  /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/rtc.h \
@@ -138,7 +138,7 @@ pm_locks.o: /home/fabio/esp/esp-idf/components/esp32/./pm_locks.c \
 
 /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/assert.h:
 

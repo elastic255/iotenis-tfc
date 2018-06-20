@@ -6,7 +6,7 @@ eth_phy/phy_tlk110.o: \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/_default_types.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/features.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/_intsup.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
  /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/fabio/esp/esp-idf/components/esp32/include/esp_assert.h \
@@ -97,7 +97,7 @@ eth_phy/phy_tlk110.o: \
 
 /home/fabio/esp/esp-idf/components/newlib/include/sys/_intsup.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/esp32/include/rom/ets_sys.h:
 

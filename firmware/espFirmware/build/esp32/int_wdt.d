@@ -1,5 +1,5 @@
 int_wdt.o: /home/fabio/esp/esp-idf/components/esp32/./int_wdt.c \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/newlib/include/stdint.h \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/_default_types.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/features.h \
@@ -83,7 +83,7 @@ int_wdt.o: /home/fabio/esp/esp-idf/components/esp32/./int_wdt.c \
  /home/fabio/esp/esp-idf/components/driver/include/driver/timer.h \
  /home/fabio/esp/esp-idf/components/esp32/include/esp_int_wdt.h
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/stdint.h:
 

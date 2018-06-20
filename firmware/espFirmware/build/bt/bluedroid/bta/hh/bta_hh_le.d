@@ -2,7 +2,7 @@ bluedroid/bta/hh/bta_hh_le.o: \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/bta/hh/bta_hh_le.c \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/bta/include/bta_api.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/include/bt_target.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h \
  /home/fabio/esp/esp-idf/components/newlib/include/stdint.h \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/_default_types.h \
@@ -119,7 +119,7 @@ bluedroid/bta/hh/bta_hh_le.o: \
 
 /home/fabio/esp/esp-idf/components/bt/bluedroid/include/bt_target.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h:
 

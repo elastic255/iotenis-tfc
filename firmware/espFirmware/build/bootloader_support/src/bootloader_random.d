@@ -11,7 +11,7 @@ src/bootloader_random.o: \
  /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/fabio/esp/esp-idf/components/esp32/include/esp_assert.h \
  /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/newlib/include/stdlib.h \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/ieeefp.h \
  /home/fabio/esp/esp-idf/components/newlib/include/_ansi.h \
@@ -92,7 +92,7 @@ src/bootloader_random.o: \
 
 /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/stdlib.h:
 

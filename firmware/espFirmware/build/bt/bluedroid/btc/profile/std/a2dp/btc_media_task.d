@@ -1,7 +1,7 @@
 bluedroid/btc/profile/std/a2dp/btc_media_task.o: \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/btc/profile/std/a2dp/btc_media_task.c \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/include/bt_target.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h \
  /home/fabio/esp/esp-idf/components/newlib/include/stdint.h \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/_default_types.h \
@@ -150,7 +150,7 @@ bluedroid/btc/profile/std/a2dp/btc_media_task.o: \
 
 /home/fabio/esp/esp-idf/components/bt/bluedroid/include/bt_target.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/bt/bluedroid/stack/include/bt_types.h:
 

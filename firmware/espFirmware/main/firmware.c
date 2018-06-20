@@ -53,6 +53,9 @@
 
 #include "sdkconfig.h"
 
+#define RODA_ENABLE  0
+#define RODA_DISABLE 1
+
 #define RODA1_PWM     13
 #define RODA1_REVERSE 12
 #define RODA1_ENABLE  27
@@ -725,9 +728,19 @@ static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
             else if (strcmp(option, "2") == 0) {
               char *left = strtok(NULL, ",");
               char *right = strtok(NULL, ",");
+              char *enable = strtok(NULL, ",");
               int left_ = (atoi(left)-50)*2;
               int right_ = (atoi(right)-50)*2;
-              ESP_LOGI(GATTS_TAG, "roda esquerda: %d\nroda direita: %d", left_, right_);
+              int enable_ = atoi(enable);
+              ESP_LOGI(GATTS_TAG, "roda esquerda: %d\nroda direita: %d\nenable: %s", left_, right_, enable_ ? "true" : "false");
+              if (enable_) {
+                gpio_set_level(RODA1_ENABLE, RODA_ENABLE);
+                gpio_set_level(RODA2_ENABLE, RODA_ENABLE);
+              }
+              else {
+                gpio_set_level(RODA1_ENABLE, RODA_DISABLE);
+                gpio_set_level(RODA2_ENABLE, RODA_DISABLE);
+              }
               set_velocity(left_, right_);
             }
 

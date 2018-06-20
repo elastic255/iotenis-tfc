@@ -8,7 +8,7 @@ bluedroid/bta/gatt/bta_gatt_common.o: \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/stack/gatt/include/gatt_int.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/include/bt_target.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/stack/include/dyn_mem.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/include/bt_trace.h \
  /home/fabio/esp/esp-idf/components/newlib/include/stdio.h \
@@ -125,7 +125,7 @@ bluedroid/bta/gatt/bta_gatt_common.o: \
 
 /home/fabio/esp/esp-idf/components/bt/bluedroid/include/bt_target.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/bt/bluedroid/stack/include/dyn_mem.h:
 

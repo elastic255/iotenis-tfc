@@ -22,7 +22,7 @@ bluedroid/stack/sdp/sdp_server.o: \
  /home/fabio/esp/esp-idf/components/newlib/include/stdlib.h \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/fabio/esp/esp-idf/components/newlib/include/alloca.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/stack/include/btu.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/include/bt_target.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/stack/include/dyn_mem.h \
@@ -96,7 +96,7 @@ bluedroid/stack/sdp/sdp_server.o: \
 
 /home/fabio/esp/esp-idf/components/newlib/include/alloca.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/bt/bluedroid/stack/include/btu.h:
 

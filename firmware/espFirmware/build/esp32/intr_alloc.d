@@ -1,5 +1,5 @@
 intr_alloc.o: /home/fabio/esp/esp-idf/components/esp32/./intr_alloc.c \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/newlib/include/stdint.h \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/_default_types.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/features.h \
@@ -82,7 +82,7 @@ intr_alloc.o: /home/fabio/esp/esp-idf/components/esp32/./intr_alloc.c \
  /home/fabio/esp/esp-idf/components/log/include/esp_log.h \
  /home/fabio/esp/esp-idf/components/log/include/esp_log_internal.h
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/stdint.h:
 

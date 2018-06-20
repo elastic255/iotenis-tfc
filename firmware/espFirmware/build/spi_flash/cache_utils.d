@@ -17,7 +17,7 @@ cache_utils.o: \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/stdlib.h \
  /home/fabio/esp/esp-idf/components/newlib/include/alloca.h \
  /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/newlib/include/assert.h \
  /home/fabio/esp/esp-idf/components/newlib/include/string.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/string.h \
@@ -128,7 +128,7 @@ cache_utils.o: \
 
 /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/assert.h:
 

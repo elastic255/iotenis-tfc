@@ -20,7 +20,7 @@ clk.o: /home/fabio/esp/esp-idf/components/esp32/./clk.c \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/syslimits.h \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/endian.h \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/param.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/esp32/include/esp_attr.h \
  /home/fabio/esp/esp-idf/components/log/include/esp_log.h \
  /home/fabio/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
@@ -101,7 +101,7 @@ clk.o: /home/fabio/esp/esp-idf/components/esp32/./clk.c \
 
 /home/fabio/esp/esp-idf/components/newlib/include/machine/param.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/esp32/include/esp_attr.h:
 

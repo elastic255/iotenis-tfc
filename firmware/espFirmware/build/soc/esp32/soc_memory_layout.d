@@ -21,7 +21,7 @@ esp32/soc_memory_layout.o: \
  /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/fabio/esp/esp-idf/components/esp32/include/esp_assert.h \
  /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/newlib/include/assert.h \
  /home/fabio/esp/esp-idf/components/soc/include/soc/soc_memory_layout.h \
  /home/fabio/esp/esp-idf/components/esp32/include/esp_attr.h \
@@ -70,7 +70,7 @@ esp32/soc_memory_layout.o: \
 
 /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/assert.h:
 

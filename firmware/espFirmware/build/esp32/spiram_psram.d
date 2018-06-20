@@ -1,5 +1,5 @@
 spiram_psram.o: /home/fabio/esp/esp-idf/components/esp32/./spiram_psram.c \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/newlib/include/string.h \
  /home/fabio/esp/esp-idf/components/newlib/include/_ansi.h \
  /home/fabio/esp/esp-idf/components/newlib/include/newlib.h \
@@ -58,7 +58,7 @@ spiram_psram.o: /home/fabio/esp/esp-idf/components/esp32/./spiram_psram.c \
  /home/fabio/esp/esp-idf/components/esp32/include/rom/lldesc.h \
  /home/fabio/esp/esp-idf/components/esp32/include/rom/queue.h
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/string.h:
 

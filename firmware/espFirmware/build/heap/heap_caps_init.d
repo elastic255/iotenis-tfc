@@ -21,7 +21,7 @@ heap_caps_init.o: \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h \
  /home/fabio/esp/esp-idf/components/esp32/include/xtensa/hal.h \
  /home/fabio/esp/esp-idf/components/esp32/include/xtensa/config/core.h \
@@ -128,7 +128,7 @@ heap_caps_init.o: \
 
 /home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h:
 

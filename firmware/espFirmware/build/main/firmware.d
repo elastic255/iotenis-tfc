@@ -1,5 +1,5 @@
 firmware.o: \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/main/./firmware.c \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/main/./firmware.c \
  /home/fabio/esp/esp-idf/components/newlib/include/stdio.h \
  /home/fabio/esp/esp-idf/components/newlib/include/_ansi.h \
  /home/fabio/esp/esp-idf/components/newlib/include/newlib.h \
@@ -28,7 +28,7 @@ firmware.o: \
  /home/fabio/esp/esp-idf/components/newlib/include/stdint.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h \
  /home/fabio/esp/esp-idf/components/esp32/include/xtensa/hal.h \
  /home/fabio/esp/esp-idf/components/esp32/include/xtensa/config/core.h \
@@ -166,7 +166,7 @@ firmware.o: \
 
 /home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h:
 
@@ -327,4 +327,4 @@ firmware.o: \
 /home/fabio/esp/esp-idf/components/bt/bluedroid/api/include/esp_bt_main.h:
 
 /home/fabio/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatt_common_api.h:
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/main/./firmware.c:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/main/./firmware.c:

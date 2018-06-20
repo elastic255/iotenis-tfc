@@ -28,7 +28,7 @@ bluedroid/api/esp_bt_device.o: \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/sched.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/stdio.h \
  /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/newlib/include/assert.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/api/include/esp_bt_defs.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/api/include/esp_bt_main.h \
@@ -171,7 +171,7 @@ bluedroid/api/esp_bt_device.o: \
 
 /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/assert.h:
 

@@ -4,7 +4,7 @@ esp32/rtc_pm.o: /home/fabio/esp/esp-idf/components/soc/esp32/rtc_pm.c \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/features.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/_intsup.h \
  /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/newlib/include/stdlib.h \
  /home/fabio/esp/esp-idf/components/newlib/include/machine/ieeefp.h \
  /home/fabio/esp/esp-idf/components/newlib/include/_ansi.h \
@@ -36,7 +36,7 @@ esp32/rtc_pm.o: /home/fabio/esp/esp-idf/components/soc/esp32/rtc_pm.c \
 
 /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/stdlib.h:
 

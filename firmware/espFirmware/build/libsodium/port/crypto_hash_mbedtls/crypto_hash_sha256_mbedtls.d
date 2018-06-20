@@ -22,7 +22,7 @@ port/crypto_hash_mbedtls/crypto_hash_sha256_mbedtls.o: \
  /home/fabio/esp/esp-idf/components/libsodium/libsodium/src/libsodium/include/sodium/export.h \
  /home/fabio/esp/esp-idf/components/mbedtls/include/mbedtls/sha256.h \
  /home/fabio/esp/esp-idf/components/mbedtls/port/include/mbedtls/esp_config.h \
- /home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
  /home/fabio/esp/esp-idf/components/mbedtls/include/mbedtls/check_config.h \
  /home/fabio/esp/esp-idf/components/newlib/include/limits.h \
  /home/fabio/esp/esp-idf/components/newlib/include/string.h \
@@ -72,7 +72,7 @@ port/crypto_hash_mbedtls/crypto_hash_sha256_mbedtls.o: \
 
 /home/fabio/esp/esp-idf/components/mbedtls/port/include/mbedtls/esp_config.h:
 
-/home/fabio/Documentos/TFC/IoTenis/firmware/espFirmware/build/include/sdkconfig.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
 
 /home/fabio/esp/esp-idf/components/mbedtls/include/mbedtls/check_config.h:
 
