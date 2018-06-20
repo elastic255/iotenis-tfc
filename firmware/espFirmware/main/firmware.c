@@ -461,17 +461,18 @@ void rotate_counterclockwise(int steps)
 
 void set_angle(int angle)
 {
-  int ret;
+  int ret, counter = 0;
   uint8_t sensor_data_h[3], sensor_data_l[3];
   int16_t x, y, z;
   float x_g, y_g, z_g;
-  float acc_angle = -1.0;
+  float acc_angle = -1.0, prev_angle;
   do {
     ret = i2c_example_master_sensor_test(I2C_EXAMPLE_MASTER_NUM, sensor_data_h, sensor_data_l);
     if (ret == ESP_ERR_TIMEOUT) {
       printf("I2C timeout\n");
     }
     else if (ret == ESP_OK) {
+      prev_angle = acc_angle;
       printf("*******************\n");
       printf("MASTER READ SENSOR( MMA8451Q )\n");
       printf("*******************\n");
@@ -494,19 +495,26 @@ void set_angle(int angle)
       printf("sensor y_g: %f\n", y_g);
       printf("sensor z_g: %f\n", z_g);
       float total = sqrt(x_g*x_g+y_g*y_g+z_g*z_g);
-      ESP_LOGI(GATTS_TAG, "angle (rad): %f", acos(z_g/total));
-      ESP_LOGI(GATTS_TAG, "angle (degree): %f", acos(z_g/total)*180/M_PI);
-      acc_angle = acos(z_g/total)*180/M_PI;
-      if (acc_angle < angle-5) {
+      ESP_LOGI(GATTS_TAG, "angle (rad): %f", acos(x_g/total));
+      ESP_LOGI(GATTS_TAG, "angle (degree): %f", acos(x_g/total)*180/M_PI);
+      acc_angle = acos(x_g/total)*180/M_PI-90;
+      if (acc_angle < angle-3) {
         ESP_LOGI(GATTS_TAG, "adjusting angle: rotating motor clockwise\n");
-        rotate_clockwise(4);
+        rotate_clockwise(6);
       }
-      else if (acc_angle > angle+5) {
+      else if (acc_angle > angle+3) {
         ESP_LOGI(GATTS_TAG, "adjusting angle: rotating motor counterclockwise\n");
-        rotate_counterclockwise(4);
+        rotate_counterclockwise(6);
       }
+
+      if (prev_angle == acc_angle)
+        counter++;
+      else
+        counter = 0;
+
+      if (counter == 3) break;
     }
-  } while (acc_angle < angle-5 || acc_angle > angle+5);
+  } while (acc_angle < angle-3 || acc_angle > angle+3);
 
   return;
 }
