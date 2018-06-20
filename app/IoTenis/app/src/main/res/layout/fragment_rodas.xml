@@ -35,13 +35,25 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/enableCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="32dp"
+            android:checked="true"
             android:text="Habilita Rodas"
             app:layout_constraintBottom_toTopOf="@+id/right_seekbar"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <CheckBox
+            android:id="@+id/controlCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginStart="16dp"
+            android:checked="false"
+            android:text="Controle Individual"
+            app:layout_constraintBottom_toTopOf="@+id/left_seekbar"
+            app:layout_constraintStart_toStartOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

@@ -10,8 +10,6 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -188,26 +186,57 @@ public class MainActivity extends AppCompatActivity {
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
+        if (mBluetoothLeService != null) {
+            final boolean result = mBluetoothLeService.connect(mDeviceAddress);
+            Log.d(TAG, "Connect request result=" + result);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(mGattUpdateReceiver);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(mServiceConnection);
+        mBluetoothLeService = null;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.connection, menu);
+        if (mConnected) {
+            menu.findItem(R.id.menu_connect).setVisible(false);
+            menu.findItem(R.id.menu_disconnect).setVisible(true);
+        } else {
+            menu.findItem(R.id.menu_connect).setVisible(true);
+            menu.findItem(R.id.menu_disconnect).setVisible(false);
+        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(item.getItemId()) {
+            case R.id.menu_connect:
+                mBluetoothLeService.connect(mDeviceAddress);
+                return true;
+            case R.id.menu_disconnect:
+                mBluetoothLeService.disconnect();
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -219,10 +248,11 @@ public class MainActivity extends AppCompatActivity {
         mBluetoothLeService.writeCharacteristic(values);
     }
 
-    protected static void send_info_to_ESP(int left, int right) {
+    protected static void send_info_to_ESP(int left, int right, boolean enable) {
         String values = String.valueOf(2) + "," +
                 String.valueOf(left) + "," +
-                String.valueOf(right);
+                String.valueOf(right) + "," +
+                String.valueOf(enable ? 1 : 0);
         mBluetoothLeService.writeCharacteristic(values);
     }
 
@@ -238,7 +268,8 @@ public class MainActivity extends AppCompatActivity {
 
         private SeekBar left;
         private SeekBar right;
-        private CheckBox enable;
+        private CheckBox enableWheels;
+        private CheckBox individualControl;
 
         public Rodas() {
         }
@@ -263,11 +294,8 @@ public class MainActivity extends AppCompatActivity {
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             right = (SeekBar) rootView.findViewById(R.id.right_seekbar);
             left = (SeekBar) rootView.findViewById(R.id.left_seekbar);
-            enable = (CheckBox) rootView.findViewById(R.id.checkBox);
-
-            enable.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
-
-            });
+            enableWheels = (CheckBox) rootView.findViewById(R.id.enableCheckBox);
+            individualControl = (CheckBox) rootView.findViewById(R.id.controlCheckBox);
 
             left.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 private int progress = 0;
@@ -275,6 +303,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
                     progress = progressValue;
+                    if (!individualControl.isChecked())
+                        right.setProgress(progressValue);
                 }
 
                 @Override
@@ -284,7 +314,8 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
-                    send_info_to_ESP(left.getProgress(), right.getProgress());
+                    if (enableWheels.isChecked())
+                        send_info_to_ESP(left.getProgress(), right.getProgress(), enableWheels.isChecked());
                 }
             });
 
@@ -294,6 +325,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
                     progress = progressValue;
+                    if (!individualControl.isChecked())
+                        left.setProgress(progressValue);
                 }
 
                 @Override
@@ -303,9 +336,23 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
-                    send_info_to_ESP(left.getProgress(), right.getProgress());
+                    if (enableWheels.isChecked())
+                        send_info_to_ESP(left.getProgress(), right.getProgress(), enableWheels.isChecked());
                 }
             });
+
+            enableWheels.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    send_info_to_ESP(left.getProgress(), right.getProgress(), enableWheels.isChecked());
+                    if (!enableWheels.isChecked()) {
+                        left.setProgress(50);
+                        right.setProgress(50);
+                    }
+
+                }
+            });
+
             return rootView;
         }
     }
