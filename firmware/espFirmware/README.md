@@ -2,11 +2,11 @@
 Make sure that you have the Espressif IoT Development Framework (https://github.com/espressif/esp-idf/) properly installed.
 
 If everything is fine (you can run some examples from the development framework) you will need to:
-'''
+```shell
 make
-'''
+```
 
 And, to flash the firmware:
-'''
+```shell
 make flash
-'''
+```
