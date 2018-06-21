@@ -53,6 +53,12 @@
 
 #include "sdkconfig.h"
 
+#define NBIPS 4
+#define DELAY_BIPS 500
+
+#define EPSILON 0.5f
+#define STEPS_TO_TAKE 5
+
 #define RODA_ENABLE  0
 #define RODA_DISABLE 1
 
@@ -80,7 +86,7 @@
 #define BOBINA_D 5
 #define GPIO_OUTPUT_PIN_SEL  ((1<<BOBINA_A) | (1<<BOBINA_B) | (1<<BOBINA_C) | (1<<BOBINA_D))
 
-#define STEPMOTOR_DELAY_MS 10
+#define STEPMOTOR_DELAY_MS 30
 
 #define I2C_EXAMPLE_MASTER_SCL_IO          15               /*!< gpio number for I2C master clock */
 #define I2C_EXAMPLE_MASTER_SDA_IO          2               /*!< gpio number for I2C master data  */
@@ -374,22 +380,22 @@ mma8451_range_t getRange(void)
   return (mma8451_range_t) (readRegister8(I2C_EXAMPLE_MASTER_NUM, MMA8451_REG_XYZ_DATA_CFG) & 0x03);
 }
 
-void set_velocity(int left, int right)
+void set_velocity(float left, float right)
 {
   int leftReverse, rightReverse;
   
   if (left < 0) {
     leftReverse = 0;
-    left *= 1;
+    left *= -1;
   }
   else
-    leftReverse = 0;
+    leftReverse = 1;
   if (right < 0) {
-    rightReverse = 0;
+    rightReverse = 1;
     right *= -1;
   }
   else
-    rightReverse = 1;
+    rightReverse = 0;
   gpio_set_level(RODA1_REVERSE, leftReverse);
   gpio_set_level(RODA2_REVERSE, rightReverse);
   
@@ -498,13 +504,13 @@ void set_angle(int angle)
       ESP_LOGI(GATTS_TAG, "angle (rad): %f", acos(x_g/total));
       ESP_LOGI(GATTS_TAG, "angle (degree): %f", acos(x_g/total)*180/M_PI);
       acc_angle = acos(x_g/total)*180/M_PI-90;
-      if (acc_angle < angle-3) {
+      if (acc_angle < angle-EPSILON) {
         ESP_LOGI(GATTS_TAG, "adjusting angle: rotating motor clockwise\n");
-        rotate_clockwise(6);
+        rotate_counterclockwise(STEPS_TO_TAKE);
       }
-      else if (acc_angle > angle+3) {
+      else if (acc_angle > angle+EPSILON) {
         ESP_LOGI(GATTS_TAG, "adjusting angle: rotating motor counterclockwise\n");
-        rotate_counterclockwise(6);
+        rotate_clockwise(STEPS_TO_TAKE);
       }
 
       if (prev_angle == acc_angle)
@@ -512,9 +518,9 @@ void set_angle(int angle)
       else
         counter = 0;
 
-      if (counter == 3) break;
+      if (counter == 10) break;
     }
-  } while (acc_angle < angle-3 || acc_angle > angle+3);
+  } while (acc_angle < angle-EPSILON || acc_angle > angle+EPSILON);
 
   return;
 }
@@ -737,10 +743,10 @@ static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
               char *left = strtok(NULL, ",");
               char *right = strtok(NULL, ",");
               char *enable = strtok(NULL, ",");
-              int left_ = (atoi(left)-50)*2;
-              int right_ = (atoi(right)-50)*2;
+              float left_ = ((float) atoi(left)-50)*2/10.0;
+              float right_ = ((float) atoi(right)-50)*2/10.0;
               int enable_ = atoi(enable);
-              ESP_LOGI(GATTS_TAG, "roda esquerda: %d\nroda direita: %d\nenable: %s", left_, right_, enable_ ? "true" : "false");
+              ESP_LOGI(GATTS_TAG, "roda esquerda: %f\nroda direita: %f\nenable: %s", left_, right_, enable_ ? "true" : "false");
               if (enable_) {
                 gpio_set_level(RODA1_ENABLE, RODA_ENABLE);
                 gpio_set_level(RODA2_ENABLE, RODA_ENABLE);
@@ -956,6 +962,7 @@ void pwm_gpio_initialize()
 
 void motor_calibration()
 {
+  /*
   vTaskDelay(pdMS_TO_TICKS(2000));
   mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 254.0/255.0*100);
   mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 254.0/255.0*100);
@@ -976,10 +983,33 @@ void motor_calibration()
   mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 1.0/255.0*100);
   mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 1.0/255.0*100);
   vTaskDelay(pdMS_TO_TICKS(1000));
+  */
 
+  /* Reset */
+  /*
+  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 100.0);
+  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 100.0);
+  vTaskDelay(pdMS_TO_TICKS(1000));
+  
+  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 0.0);
+  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 0.0);
+  vTaskDelay(pdMS_TO_TICKS(1000));
+
+  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 50.0);
+  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 50.0);
+  vTaskDelay(pdMS_TO_TICKS(1000));
+  */
+
+  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 51.0);
+  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 51.0);
+  vTaskDelay(pdMS_TO_TICKS(1000));
+
+  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 50.0);
+  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 50.0);
+  vTaskDelay(pdMS_TO_TICKS(1000));
+  
   // log: done!
   ESP_LOGI(GATTS_TAG, "Done!");
-  vTaskDelay(pdMS_TO_TICKS(6000));
 }
 
 void stepMotor_initialize()
@@ -1005,6 +1035,8 @@ void stepMotor_initialize()
   pwm_config.counter_mode = MCPWM_UP_COUNTER;
   pwm_config.duty_mode = MCPWM_DUTY_MODE_0;
   mcpwm_init(MCPWM_UNIT_1, MCPWM_TIMER_1, &pwm_config);
+
+  stepMotor(thisStep);
 }
 
 void wheelMotor_initialize()
@@ -1064,20 +1096,20 @@ void app_main()
     }
     ESP_ERROR_CHECK( ret );
 
+    // Initialize wheels motor signals
+    wheelMotor_initialize();
+    
     // Initialize PWM signals
     pwm_gpio_initialize();
 
     // Calibrate motors
-    //motor_calibration();
+    motor_calibration();
     
     // Initialize accelerometer
     accelerometer_initialize();
 
     // Initialize step motor signals
     stepMotor_initialize();
-
-    // Initialize wheels motor signals
-    wheelMotor_initialize();
 
     esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
     ret = esp_bt_controller_init(&bt_cfg);
@@ -1117,17 +1149,20 @@ void app_main()
         ESP_LOGE(GATTS_TAG, "gatts app register error, error code = %x", ret);
         return;
     }
-    /*
-    ret = esp_ble_gatts_app_register(PROFILE_B_APP_ID);
-    if (ret){
-        ESP_LOGE(GATTS_TAG, "gatts app register error, error code = %x", ret);
-        return;
-    }
-    */
+
     esp_err_t local_mtu_ret = esp_ble_gatt_set_local_mtu(512);
     if (local_mtu_ret){
         ESP_LOGE(GATTS_TAG, "set local  MTU failed, error code = %x", local_mtu_ret);
     }
+
+    // NBIPS bips to assert that everything is fine (DELAY_BIPS ms between bips)
+    for (int i = 0; i < NBIPS; ++i) {
+      mcpwm_set_duty(MCPWM_UNIT_1, MCPWM_TIMER_1, MCPWM_OPR_A, 0.0);
+      vTaskDelay(pdMS_TO_TICKS(DELAY_BIPS));
+      mcpwm_set_duty(MCPWM_UNIT_1, MCPWM_TIMER_1, MCPWM_OPR_A, 50.0);
+      stepMotor(thisStep); // this may not be necessary
+    }
+    
 
     return;
 }
