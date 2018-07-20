@@ -91,7 +91,7 @@
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
         app:layout_constraintTop_toTopOf="parent">
-
+        <!--
         <TextView
             android:id="@+id/maxAngle"
             android:layout_width="49dp"
@@ -137,6 +137,42 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/maxAngle"
             app:layout_constraintStart_toEndOf="@+id/minAngle" />
+            -->
+        <TextView
+            android:id="@+id/text_steps"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Quantos passos?"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/steps_given"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="numberSigned"
+            android:imeOptions="actionDone"
+            app:layout_constraintStart_toEndOf="@+id/text_steps"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/move_stepmotor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginStart="5dp"
+            android:text="Movimentar motor de passo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout

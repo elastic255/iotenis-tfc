@@ -23,12 +23,19 @@ firmware.o: \
  /home/fabio/esp/esp-idf/components/newlib/include/alloca.h \
  /home/fabio/esp/esp-idf/components/newlib/include/string.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/string.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/main/./stepmotor.h \
  /home/fabio/esp/esp-idf/components/newlib/include/math.h \
- /home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h \
+ /home/fabio/esp/esp-idf/components/driver/include/driver/i2c.h \
+ /home/fabio/esp/esp-idf/components/esp32/include/esp_types.h \
  /home/fabio/esp/esp-idf/components/newlib/include/stdint.h \
  /home/fabio/esp/esp-idf/components/newlib/include/sys/_intsup.h \
- /home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
+ /home/fabio/esp/esp-idf/components/esp32/include/esp_err.h \
+ /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h \
  /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h \
+ /home/fabio/esp/esp-idf/components/newlib/include/assert.h \
+ /home/fabio/esp/esp-idf/components/esp32/include/esp_intr_alloc.h \
+ /home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h \
+ /home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h \
  /home/fabio/esp/esp-idf/components/esp32/include/xtensa/hal.h \
  /home/fabio/esp/esp-idf/components/esp32/include/xtensa/config/core.h \
@@ -42,8 +49,6 @@ firmware.o: \
  /home/fabio/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
  /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/fabio/esp/esp-idf/components/esp32/include/esp_assert.h \
- /home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h \
- /home/fabio/esp/esp-idf/components/newlib/include/assert.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/projdefs.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/portable.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/deprecated_definitions.h \
@@ -54,7 +59,6 @@ firmware.o: \
  /home/fabio/esp/esp-idf/components/esp32/include/xtensa/xtruntime-core-state.h \
  /home/fabio/esp/esp-idf/components/esp32/include/esp_crosscore_int.h \
  /home/fabio/esp/esp-idf/components/esp32/include/esp_timer.h \
- /home/fabio/esp/esp-idf/components/esp32/include/esp_err.h \
  /home/fabio/esp/esp-idf/components/heap/include/esp_heap_caps.h \
  /home/fabio/esp/esp-idf/components/heap/include/multi_heap.h \
  /home/fabio/esp/esp-idf/components/soc/include/soc/soc_memory_layout.h \
@@ -64,7 +68,6 @@ firmware.o: \
  /home/fabio/esp/esp-idf/components/esp32/include/esp_system.h \
  /home/fabio/esp/esp-idf/components/esp32/include/esp_sleep.h \
  /home/fabio/esp/esp-idf/components/driver/include/driver/gpio.h \
- /home/fabio/esp/esp-idf/components/esp32/include/esp_types.h \
  /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/gpio_reg.h \
  /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/soc.h \
  /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/gpio_struct.h \
@@ -72,24 +75,18 @@ firmware.o: \
  /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/io_mux_reg.h \
  /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/gpio_sig_map.h \
  /home/fabio/esp/esp-idf/components/esp32/include/rom/gpio.h \
- /home/fabio/esp/esp-idf/components/esp32/include/esp_intr_alloc.h \
  /home/fabio/esp/esp-idf/components/driver/include/driver/touch_pad.h \
  /home/fabio/esp/esp-idf/components/esp32/include/esp_intr.h \
  /home/fabio/esp/esp-idf/components/esp32/include/rom/ets_sys.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/xtensa_api.h \
  /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/touch_channel.h \
+ /home/fabio/esp/esp-idf/components/freertos/include/freertos/semphr.h \
+ /home/fabio/esp/esp-idf/components/freertos/include/freertos/queue.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/task.h \
  /home/fabio/esp/esp-idf/components/newlib/include/limits.h \
  /home/fabio/esp/esp-idf/components/freertos/include/freertos/list.h \
- /home/fabio/esp/esp-idf/components/freertos/include/freertos/event_groups.h \
- /home/fabio/esp/esp-idf/components/freertos/include/freertos/timers.h \
- /home/fabio/esp/esp-idf/components/freertos/include/freertos/task.h \
- /home/fabio/esp/esp-idf/components/log/include/esp_log.h \
- /home/fabio/esp/esp-idf/components/log/include/esp_log_internal.h \
- /home/fabio/esp/esp-idf/components/nvs_flash/include/nvs_flash.h \
- /home/fabio/esp/esp-idf/components/nvs_flash/include/nvs.h \
- /home/fabio/esp/esp-idf/components/bt/include/bt.h \
- /home/fabio/esp/esp-idf/components/esp32/include/esp_task.h \
+ /home/fabio/esp/esp-idf/components/freertos/include/freertos/queue.h \
+ /home/fabio/esp/esp-idf/components/freertos/include/freertos/ringbuf.h \
  /home/fabio/esp/esp-idf/components/driver/include/driver/mcpwm.h \
  /home/fabio/esp/esp-idf/components/driver/include/driver/periph_ctrl.h \
  /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/dport_reg.h \
@@ -97,11 +94,17 @@ firmware.o: \
  /home/fabio/esp/esp-idf/components/esp32/include/esp_dport_access.h \
  /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/mcpwm_reg.h \
  /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/mcpwm_struct.h \
- /home/fabio/esp/esp-idf/components/driver/include/driver/i2c.h \
- /home/fabio/esp/esp-idf/components/freertos/include/freertos/semphr.h \
- /home/fabio/esp/esp-idf/components/freertos/include/freertos/queue.h \
- /home/fabio/esp/esp-idf/components/freertos/include/freertos/queue.h \
- /home/fabio/esp/esp-idf/components/freertos/include/freertos/ringbuf.h \
+ /home/fabio/esp/esp-idf/components/log/include/esp_log.h \
+ /home/fabio/esp/esp-idf/components/log/include/esp_log_internal.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/main/./wheel.h \
+ /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/main/./esc.h \
+ /home/fabio/esp/esp-idf/components/freertos/include/freertos/event_groups.h \
+ /home/fabio/esp/esp-idf/components/freertos/include/freertos/timers.h \
+ /home/fabio/esp/esp-idf/components/freertos/include/freertos/task.h \
+ /home/fabio/esp/esp-idf/components/nvs_flash/include/nvs_flash.h \
+ /home/fabio/esp/esp-idf/components/nvs_flash/include/nvs.h \
+ /home/fabio/esp/esp-idf/components/bt/include/bt.h \
+ /home/fabio/esp/esp-idf/components/esp32/include/esp_task.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/api/include/esp_gap_ble_api.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/api/include/esp_bt_defs.h \
  /home/fabio/esp/esp-idf/components/bt/bluedroid/api/include/esp_gatts_api.h \
@@ -156,17 +159,31 @@ firmware.o: \
 
 /home/fabio/esp/esp-idf/components/newlib/include/sys/string.h:
 
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/main/./stepmotor.h:
+
 /home/fabio/esp/esp-idf/components/newlib/include/math.h:
 
-/home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h:
+/home/fabio/esp/esp-idf/components/driver/include/driver/i2c.h:
+
+/home/fabio/esp/esp-idf/components/esp32/include/esp_types.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/stdint.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/sys/_intsup.h:
 
-/home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h:
+/home/fabio/esp/esp-idf/components/esp32/include/esp_err.h:
+
+/home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h:
 
 /home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/build/include/sdkconfig.h:
+
+/home/fabio/esp/esp-idf/components/newlib/include/assert.h:
+
+/home/fabio/esp/esp-idf/components/esp32/include/esp_intr_alloc.h:
+
+/home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h:
+
+/home/fabio/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h:
 
 /home/fabio/esp/esp-idf/components/freertos/include/freertos/xtensa_config.h:
 
@@ -194,10 +211,6 @@ firmware.o: \
 
 /home/fabio/esp/esp-idf/components/esp32/include/esp_assert.h:
 
-/home/fabio/esp/esp-idf/components/newlib/platform_include/assert.h:
-
-/home/fabio/esp/esp-idf/components/newlib/include/assert.h:
-
 /home/fabio/esp/esp-idf/components/freertos/include/freertos/projdefs.h:
 
 /home/fabio/esp/esp-idf/components/freertos/include/freertos/portable.h:
@@ -218,8 +231,6 @@ firmware.o: \
 
 /home/fabio/esp/esp-idf/components/esp32/include/esp_timer.h:
 
-/home/fabio/esp/esp-idf/components/esp32/include/esp_err.h:
-
 /home/fabio/esp/esp-idf/components/heap/include/esp_heap_caps.h:
 
 /home/fabio/esp/esp-idf/components/heap/include/multi_heap.h:
@@ -238,8 +249,6 @@ firmware.o: \
 
 /home/fabio/esp/esp-idf/components/driver/include/driver/gpio.h:
 
-/home/fabio/esp/esp-idf/components/esp32/include/esp_types.h:
-
 /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/gpio_reg.h:
 
 /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/soc.h:
@@ -254,8 +263,6 @@ firmware.o: \
 
 /home/fabio/esp/esp-idf/components/esp32/include/rom/gpio.h:
 
-/home/fabio/esp/esp-idf/components/esp32/include/esp_intr_alloc.h:
-
 /home/fabio/esp/esp-idf/components/driver/include/driver/touch_pad.h:
 
 /home/fabio/esp/esp-idf/components/esp32/include/esp_intr.h:
@@ -266,29 +273,19 @@ firmware.o: \
 
 /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/touch_channel.h:
 
+/home/fabio/esp/esp-idf/components/freertos/include/freertos/semphr.h:
+
+/home/fabio/esp/esp-idf/components/freertos/include/freertos/queue.h:
+
 /home/fabio/esp/esp-idf/components/freertos/include/freertos/task.h:
 
 /home/fabio/esp/esp-idf/components/newlib/include/limits.h:
 
 /home/fabio/esp/esp-idf/components/freertos/include/freertos/list.h:
 
-/home/fabio/esp/esp-idf/components/freertos/include/freertos/event_groups.h:
+/home/fabio/esp/esp-idf/components/freertos/include/freertos/queue.h:
 
-/home/fabio/esp/esp-idf/components/freertos/include/freertos/timers.h:
-
-/home/fabio/esp/esp-idf/components/freertos/include/freertos/task.h:
-
-/home/fabio/esp/esp-idf/components/log/include/esp_log.h:
-
-/home/fabio/esp/esp-idf/components/log/include/esp_log_internal.h:
-
-/home/fabio/esp/esp-idf/components/nvs_flash/include/nvs_flash.h:
-
-/home/fabio/esp/esp-idf/components/nvs_flash/include/nvs.h:
-
-/home/fabio/esp/esp-idf/components/bt/include/bt.h:
-
-/home/fabio/esp/esp-idf/components/esp32/include/esp_task.h:
+/home/fabio/esp/esp-idf/components/freertos/include/freertos/ringbuf.h:
 
 /home/fabio/esp/esp-idf/components/driver/include/driver/mcpwm.h:
 
@@ -304,15 +301,27 @@ firmware.o: \
 
 /home/fabio/esp/esp-idf/components/soc/esp32/include/soc/mcpwm_struct.h:
 
-/home/fabio/esp/esp-idf/components/driver/include/driver/i2c.h:
+/home/fabio/esp/esp-idf/components/log/include/esp_log.h:
 
-/home/fabio/esp/esp-idf/components/freertos/include/freertos/semphr.h:
+/home/fabio/esp/esp-idf/components/log/include/esp_log_internal.h:
 
-/home/fabio/esp/esp-idf/components/freertos/include/freertos/queue.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/main/./wheel.h:
 
-/home/fabio/esp/esp-idf/components/freertos/include/freertos/queue.h:
+/home/fabio/Documentos/TFC/iotenis-tfc/firmware/espFirmware/main/./esc.h:
 
-/home/fabio/esp/esp-idf/components/freertos/include/freertos/ringbuf.h:
+/home/fabio/esp/esp-idf/components/freertos/include/freertos/event_groups.h:
+
+/home/fabio/esp/esp-idf/components/freertos/include/freertos/timers.h:
+
+/home/fabio/esp/esp-idf/components/freertos/include/freertos/task.h:
+
+/home/fabio/esp/esp-idf/components/nvs_flash/include/nvs_flash.h:
+
+/home/fabio/esp/esp-idf/components/nvs_flash/include/nvs.h:
+
+/home/fabio/esp/esp-idf/components/bt/include/bt.h:
+
+/home/fabio/esp/esp-idf/components/esp32/include/esp_task.h:
 
 /home/fabio/esp/esp-idf/components/bt/bluedroid/api/include/esp_gap_ble_api.h:
 

@@ -25,7 +25,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
+
+#include "stepmotor.h"
+#include "wheel.h"
+#include "esc.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -34,15 +37,6 @@
 #include "esp_log.h"
 #include "nvs_flash.h"
 #include "bt.h"
-
-#include "driver/gpio.h"
-#include "esp_attr.h"
-
-#include "driver/mcpwm.h"
-#include "soc/mcpwm_reg.h"
-#include "soc/mcpwm_struct.h"
-
-#include "driver/i2c.h"
 
 #include "esp_gap_ble_api.h"
 #include "esp_gatts_api.h"
@@ -53,72 +47,7 @@
 
 #include "sdkconfig.h"
 
-#define NBIPS 4
-#define DELAY_BIPS 500
-
-#define EPSILON 0.5f
-#define STEPS_TO_TAKE 5
-
-#define RODA_ENABLE  0
-#define RODA_DISABLE 1
-
-#define RODA1_PWM     13
-#define RODA1_REVERSE 12
-#define RODA1_ENABLE  27
-
-#define RODA2_PWM     26
-#define RODA2_REVERSE 25
-#define RODA2_ENABLE  32
-
-#define RODA1_OUTPUT_PIN_SEL (1<<RODA1_REVERSE) | (1<<RODA1_ENABLE)
-#define RODA2_OUTPUT_PIN_SEL (1ULL<<RODA2_REVERSE) | (1ULL<<RODA2_ENABLE)
-
-#define MOTOR1_GPIO    22
-#define MOTOR2_GPIO    23
-#define PWM_FREQUENCY 490
-
-#define PWM_STEPMOTOR 19
-#define PWM_STEPMOTOR_FREQUENCY 1000
-
-#define BOBINA_A 4
-#define BOBINA_B 16
-#define BOBINA_C 17
-#define BOBINA_D 5
-#define GPIO_OUTPUT_PIN_SEL  ((1<<BOBINA_A) | (1<<BOBINA_B) | (1<<BOBINA_C) | (1<<BOBINA_D))
-
-#define STEPMOTOR_DELAY_MS 30
-
-#define I2C_EXAMPLE_MASTER_SCL_IO          15               /*!< gpio number for I2C master clock */
-#define I2C_EXAMPLE_MASTER_SDA_IO          2               /*!< gpio number for I2C master data  */
-#define I2C_EXAMPLE_MASTER_NUM             I2C_NUM_1        /*!< I2C port number for master dev */
-#define I2C_EXAMPLE_MASTER_TX_BUF_DISABLE  0                /*!< I2C master do not need buffer */
-#define I2C_EXAMPLE_MASTER_RX_BUF_DISABLE  0                /*!< I2C master do not need buffer */
-#define I2C_EXAMPLE_MASTER_FREQ_HZ         100000           /*!< I2C master clock frequency */
-
-#define MMA8451_SENSOR_ADDR                0x1C             /*!< slave address for MMA8451 sensor */
-#define WRITE_BIT                          I2C_MASTER_WRITE /*!< I2C master write */
-#define READ_BIT                           I2C_MASTER_READ  /*!< I2C master read */
-#define ACK_CHECK_EN                       0x1              /*!< I2C master will check ack from slave*/
-#define ACK_VAL                            0x0              /*!< I2C ack value */
-#define NACK_VAL                           0x1              /*!< I2C nack value */
-#define MMA8451_REG_OUT_X_MSB     0x01
-#define MMA8451_REG_WHOAMI        0x0D
-#define MMA8451_REG_XYZ_DATA_CFG  0x0E
-#define MMA8451_REG_PL_CFG        0x11
-#define MMA8451_REG_CTRL_REG1     0x2A
-#define MMA8451_REG_CTRL_REG2     0x2B
-#define MMA8451_REG_CTRL_REG4     0x2D
-#define MMA8451_REG_CTRL_REG5     0x2E
-typedef enum
-{
-  MMA8451_RANGE_8_G           = 0b10,   // +/- 8g
-  MMA8451_RANGE_4_G           = 0b01,   // +/- 4g
-  MMA8451_RANGE_2_G           = 0b00    // +/- 2g (default value)
-} mma8451_range_t;
-
-
 #define GATTS_TAG "IoTenis"
-
 #define GATTS_SERVICE_UUID_TEST_A   0x00FF
 #define GATTS_CHAR_UUID_TEST_A      0xFF01
 #define GATTS_DESCR_UUID_TEST_A     0x3333
@@ -133,9 +62,6 @@ typedef enum
 
 uint8_t char1_str[] = {0x11,0x22,0x33};
 esp_gatt_char_prop_t a_property = 0;
-float cur_duty_motor1 = 0;
-float cur_duty_motor2 = 0;
-int cur_angle = 0;
 
 esp_attr_value_t gatts_demo_char1_val =
 {
@@ -251,279 +177,8 @@ typedef struct {
 
 static prepare_type_env_t a_prepare_write_env;
 
-void motor_calibration();
-
 void example_write_event_env(esp_gatt_if_t gatts_if, prepare_type_env_t *prepare_write_env, esp_ble_gatts_cb_param_t *param);
 void example_exec_write_event_env(prepare_type_env_t *prepare_write_env, esp_ble_gatts_cb_param_t *param);
-
-/**
- * @brief test code to write esp-i2c-slave
- *
- * 1. set mode
- * _________________________________________________________________
- * | start | slave_addr + wr_bit + ack | write 1 byte + ack  | stop |
- * --------|---------------------------|---------------------|------|
- * 2. wait more than 24 ms
- * 3. read data
- * ______________________________________________________________________________________
- * | start | slave_addr + rd_bit + ack | read 1 byte + ack  | read 1 byte + nack | stop |
- * --------|---------------------------|--------------------|--------------------|------|
- */
-static esp_err_t i2c_example_master_sensor_test(i2c_port_t i2c_num, uint8_t* data_h, uint8_t* data_l)
-{
-  int ret;
-  i2c_cmd_handle_t cmd = i2c_cmd_link_create();
-  i2c_master_start(cmd);
-  i2c_master_write_byte(cmd, MMA8451_SENSOR_ADDR << 1 | WRITE_BIT, ACK_CHECK_EN);
-  i2c_master_write_byte(cmd, MMA8451_REG_OUT_X_MSB, ACK_CHECK_EN);
-  //i2c_master_stop(cmd);
-  ret = i2c_master_cmd_begin(i2c_num, cmd, 1000 / portTICK_RATE_MS);
-  i2c_cmd_link_delete(cmd);
-  if (ret != ESP_OK) {
-    return ret;
-  }
-  vTaskDelay(30 / portTICK_RATE_MS);
-  cmd = i2c_cmd_link_create();
-  i2c_master_start(cmd);
-  i2c_master_write_byte(cmd, MMA8451_SENSOR_ADDR << 1 | READ_BIT, ACK_CHECK_EN);
-  i2c_master_read_byte(cmd, &data_h[0], ACK_VAL);
-  i2c_master_read_byte(cmd, &data_l[0], ACK_VAL);
-  i2c_master_read_byte(cmd, &data_h[1], ACK_VAL);
-  i2c_master_read_byte(cmd, &data_l[1], ACK_VAL);
-  i2c_master_read_byte(cmd, &data_h[2], ACK_VAL);
-  i2c_master_read_byte(cmd, &data_l[2], NACK_VAL);
-  i2c_master_stop(cmd);
-  ret = i2c_master_cmd_begin(i2c_num, cmd, 1000 / portTICK_RATE_MS);
-  i2c_cmd_link_delete(cmd);
-  return ret;
-}
-
-void writeRegister8(i2c_port_t i2c_num, uint8_t reg, uint8_t value) {
-  i2c_cmd_handle_t cmd = i2c_cmd_link_create();
-  i2c_master_start(cmd);
-  i2c_master_write_byte(cmd, MMA8451_SENSOR_ADDR << 1 | WRITE_BIT, ACK_CHECK_EN);
-  i2c_master_write_byte(cmd, reg, ACK_CHECK_EN);
-  i2c_master_write_byte(cmd, value, ACK_CHECK_EN);
-  i2c_master_stop(cmd);
-  i2c_master_cmd_begin(i2c_num, cmd, 1000 / portTICK_RATE_MS);
-  i2c_cmd_link_delete(cmd);
-}
-
-uint8_t readRegister8(i2c_port_t i2c_num, uint8_t reg) {
-
-  uint8_t data = 0;
-  printf("reg: %x\n", reg);
-  i2c_cmd_handle_t cmd = i2c_cmd_link_create();
-  i2c_master_start(cmd);
-  i2c_master_write_byte(cmd, MMA8451_SENSOR_ADDR << 1 | WRITE_BIT, ACK_CHECK_EN);
-  i2c_master_write_byte(cmd, reg, ACK_CHECK_EN);
-  //i2c_master_stop(cmd);
-  i2c_master_cmd_begin(i2c_num, cmd, 1000 / portTICK_RATE_MS);
-  i2c_cmd_link_delete(cmd);
-  vTaskDelay(30 / portTICK_RATE_MS);
-
-  cmd = i2c_cmd_link_create();
-  i2c_master_start(cmd);
-  i2c_master_write_byte(cmd, MMA8451_SENSOR_ADDR << 1 | READ_BIT, ACK_CHECK_EN);
-  i2c_master_read_byte(cmd, &data, NACK_VAL);
-  i2c_master_stop(cmd);
-  i2c_master_cmd_begin(i2c_num, cmd, 1000 / portTICK_RATE_MS);
-  i2c_cmd_link_delete(cmd);
-  printf("readRegister data: %x\n", data);
-  return data;
-}
-
-void accelerometer_initialize()
-{
-  int i2c_master_port = I2C_EXAMPLE_MASTER_NUM;
-  i2c_config_t conf;
-  conf.mode = I2C_MODE_MASTER;
-  conf.sda_io_num = I2C_EXAMPLE_MASTER_SDA_IO;
-  conf.sda_pullup_en = GPIO_PULLUP_ENABLE;
-  conf.scl_io_num = I2C_EXAMPLE_MASTER_SCL_IO;
-  conf.scl_pullup_en = GPIO_PULLUP_ENABLE;
-  conf.master.clk_speed = I2C_EXAMPLE_MASTER_FREQ_HZ;
-  i2c_param_config(i2c_master_port, &conf);
-  i2c_driver_install(i2c_master_port, conf.mode,
-                     I2C_EXAMPLE_MASTER_RX_BUF_DISABLE,
-                     I2C_EXAMPLE_MASTER_TX_BUF_DISABLE, 0);
-
-  /* Check connection */
-  uint8_t deviceid = readRegister8(I2C_EXAMPLE_MASTER_NUM, MMA8451_REG_WHOAMI);
-  if (deviceid != 0x2A)
-  {
-    printf("deu ruim\n");
-  }
-
-  writeRegister8(I2C_EXAMPLE_MASTER_NUM, MMA8451_REG_CTRL_REG2, 0x40); // reset
-
-  while (readRegister8(I2C_EXAMPLE_MASTER_NUM, MMA8451_REG_CTRL_REG2) & 0x40);
-
-  // enable 4G range
-  writeRegister8(I2C_EXAMPLE_MASTER_NUM, MMA8451_REG_XYZ_DATA_CFG, MMA8451_RANGE_4_G);
-  // High res
-  writeRegister8(I2C_EXAMPLE_MASTER_NUM, MMA8451_REG_CTRL_REG2, 0x02);
-  // DRDY on INT1
-  writeRegister8(I2C_EXAMPLE_MASTER_NUM, MMA8451_REG_CTRL_REG4, 0x01);
-  writeRegister8(I2C_EXAMPLE_MASTER_NUM, MMA8451_REG_CTRL_REG5, 0x01);
-
-  // Turn on orientation config
-  writeRegister8(I2C_EXAMPLE_MASTER_NUM, MMA8451_REG_PL_CFG, 0x40);
-
-  // Activate at max rate, low noise mode
-  writeRegister8(I2C_EXAMPLE_MASTER_NUM, MMA8451_REG_CTRL_REG1, 0x01 | 0x04);
-}
-
-mma8451_range_t getRange(void)
-{
-  /* Read the data format register to preserve bits */
-  return (mma8451_range_t) (readRegister8(I2C_EXAMPLE_MASTER_NUM, MMA8451_REG_XYZ_DATA_CFG) & 0x03);
-}
-
-void set_velocity(float left, float right)
-{
-  int leftReverse, rightReverse;
-  
-  if (left < 0) {
-    leftReverse = 0;
-    left *= -1;
-  }
-  else
-    leftReverse = 1;
-  if (right < 0) {
-    rightReverse = 1;
-    right *= -1;
-  }
-  else
-    rightReverse = 0;
-  gpio_set_level(RODA1_REVERSE, leftReverse);
-  gpio_set_level(RODA2_REVERSE, rightReverse);
-  
-  mcpwm_set_duty(MCPWM_UNIT_1, MCPWM_TIMER_0, MCPWM_OPR_A, left);
-  mcpwm_set_duty(MCPWM_UNIT_1, MCPWM_TIMER_0, MCPWM_OPR_B, right);
-}
-
-int thisStep = 0;
-
-void stepMotor(int step)
-{
-  switch (thisStep) {
-  case 0:
-    gpio_set_level(BOBINA_A, 1);
-    gpio_set_level(BOBINA_B, 0);
-    gpio_set_level(BOBINA_C, 0);
-    gpio_set_level(BOBINA_D, 1);
-    break;
-  case 1:
-    gpio_set_level(BOBINA_A, 0);
-    gpio_set_level(BOBINA_B, 1);
-    gpio_set_level(BOBINA_C, 0);
-    gpio_set_level(BOBINA_D, 1);
-    break;
-  case 2:
-    gpio_set_level(BOBINA_A, 0);
-    gpio_set_level(BOBINA_B, 1);
-    gpio_set_level(BOBINA_C, 1);
-    gpio_set_level(BOBINA_D, 0);
-    break;
-  case 3:
-    gpio_set_level(BOBINA_A, 1);
-    gpio_set_level(BOBINA_B, 0);
-    gpio_set_level(BOBINA_C, 1);
-    gpio_set_level(BOBINA_D, 0);
-    break;
-  }
-}
-
-void rotate_clockwise(int steps)
-{
-  int64_t last = esp_timer_get_time();
-  
-  while (steps) {
-    stepMotor(thisStep);
-    int64_t cur = esp_timer_get_time();
-    if (cur - last >= STEPMOTOR_DELAY_MS*1000) {
-      thisStep = (thisStep+1) % 4;
-      steps--;
-      last = cur;
-    }
-  }
-}
-
-void rotate_counterclockwise(int steps)
-{
-  int64_t last = esp_timer_get_time();
-  
-  while (steps) {
-    stepMotor(thisStep);
-    int64_t cur = esp_timer_get_time();
-    if (cur - last >= STEPMOTOR_DELAY_MS*1000) {
-      thisStep = ((thisStep-1) % 4 + 4) % 4;
-      steps--;
-      last = cur;
-    }
-  }
-}
-
-void set_angle(int angle)
-{
-  int ret, counter = 0;
-  uint8_t sensor_data_h[3], sensor_data_l[3];
-  int16_t x, y, z;
-  float x_g, y_g, z_g;
-  float acc_angle = -1.0, prev_angle;
-  do {
-    ret = i2c_example_master_sensor_test(I2C_EXAMPLE_MASTER_NUM, sensor_data_h, sensor_data_l);
-    if (ret == ESP_ERR_TIMEOUT) {
-      printf("I2C timeout\n");
-    }
-    else if (ret == ESP_OK) {
-      prev_angle = acc_angle;
-      printf("*******************\n");
-      printf("MASTER READ SENSOR( MMA8451Q )\n");
-      printf("*******************\n");
-      printf("sensor val x: %d\n", (sensor_data_h[0] << 8 | sensor_data_l[0]));
-      printf("sensor val y: %d\n", (sensor_data_h[1] << 8 | sensor_data_l[1]));
-      printf("sensor val z: %d\n", (sensor_data_h[2] << 8 | sensor_data_l[2]));
-      uint8_t range = getRange();
-      uint16_t divider = 1;
-      printf("range: %d\n", range);
-      if (range == MMA8451_RANGE_8_G) divider = 1024;
-      if (range == MMA8451_RANGE_4_G) divider = 2048;
-      if (range == MMA8451_RANGE_2_G) divider = 4096;
-      x = sensor_data_h[0] << 8 | sensor_data_l[0];
-      y = sensor_data_h[1] << 8 | sensor_data_l[1];
-      z = sensor_data_h[2] << 8 | sensor_data_l[2];
-      x_g = (float)x / divider;
-      y_g = (float)y / divider;
-      z_g = (float)z / divider;
-      printf("sensor x_g: %f\n", x_g);
-      printf("sensor y_g: %f\n", y_g);
-      printf("sensor z_g: %f\n", z_g);
-      float total = sqrt(x_g*x_g+y_g*y_g+z_g*z_g);
-      ESP_LOGI(GATTS_TAG, "angle (rad): %f", acos(x_g/total));
-      ESP_LOGI(GATTS_TAG, "angle (degree): %f", acos(x_g/total)*180/M_PI);
-      acc_angle = acos(x_g/total)*180/M_PI-90;
-      if (acc_angle < angle-EPSILON) {
-        ESP_LOGI(GATTS_TAG, "adjusting angle: rotating motor clockwise\n");
-        rotate_counterclockwise(STEPS_TO_TAKE);
-      }
-      else if (acc_angle > angle+EPSILON) {
-        ESP_LOGI(GATTS_TAG, "adjusting angle: rotating motor counterclockwise\n");
-        rotate_clockwise(STEPS_TO_TAKE);
-      }
-
-      if (prev_angle == acc_angle)
-        counter++;
-      else
-        counter = 0;
-
-      if (counter == 10) break;
-    }
-  } while (acc_angle < angle-EPSILON || acc_angle > angle+EPSILON);
-
-  return;
-}
 
 static void gap_event_handler(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param)
 {
@@ -704,40 +359,36 @@ static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
             char *command = (char *) param->write.value;
             char *option = strtok(command, ",");
             if (strcmp(option, "1") == 0) {
-              char *motor1 = strtok(NULL, ",");
               char *motor2 = strtok(NULL, ",");
-              char *angle  = strtok(NULL, ",");
-              ESP_LOGI(GATTS_TAG, "forca (motor1): %d\nforca (motor2): %d\nangulo: %d\n", atoi(motor1), atoi(motor2), atoi(angle));
-              int force_motor1 = atoi(motor1);
+              char *motor1 = strtok(NULL, ",");
+              char *steps = strtok(NULL, ",");
+              //char *angle  = strtok(NULL, ",");
+              //ESP_LOGI(GATTS_TAG, "forca (motor1): %d\nforca (motor2): %d\nangulo: %d\n", atoi(motor1), atoi(motor2), atoi(angle));
               int force_motor2 = atoi(motor2);
-              int angle_       = atoi(angle);
+              int force_motor1 = atoi(motor1);
+              int steps_ = atoi(steps);
+              //int angle_       = atoi(angle);
               float duty_motor1, duty_motor2;
 
               duty_motor1 = force_motor1/2.0+50.0;
               duty_motor2 = force_motor2/2.0+50.0;
 
-              if (duty_motor1 != cur_duty_motor1) {
-                cur_duty_motor1 = duty_motor1;
-                ESP_LOGI(GATTS_TAG, "setando duty cycle, motor1: %.2f", duty_motor1);
-                mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, duty_motor1);
-              }
-              if (duty_motor2 != cur_duty_motor2) {
-                cur_duty_motor2 = duty_motor2;
-                ESP_LOGI(GATTS_TAG, "setando duty cycle, motor2: %.2f", duty_motor2);
-            
-                mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, duty_motor2);
-              }
+              /*
               if (angle_ != cur_angle) {
                 cur_angle = angle_;
+                mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 0.0);
+                mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 0.0);
                 ESP_LOGI(GATTS_TAG, "setando angulo: %d", angle_);
                 set_angle(angle_);
               }
-              /*
-              if (angle_ > 22)
-                rotate_clockwise(20);
-              else
-                rotate_counterclockwise(20);
               */
+              if (steps_ > 0) {
+                rotate_counterclockwise(steps_);
+              }
+              else {
+                rotate_clockwise(-1*steps_);
+              }
+              set_duty_esc(duty_motor1, duty_motor2);
             }
             else if (strcmp(option, "2") == 0) {
               char *left = strtok(NULL, ",");
@@ -748,14 +399,12 @@ static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
               int enable_ = atoi(enable);
               ESP_LOGI(GATTS_TAG, "roda esquerda: %f\nroda direita: %f\nenable: %s", left_, right_, enable_ ? "true" : "false");
               if (enable_) {
-                gpio_set_level(RODA1_ENABLE, RODA_ENABLE);
-                gpio_set_level(RODA2_ENABLE, RODA_ENABLE);
+                enable_wheels();
+                set_velocity(left_, right_);
               }
               else {
-                gpio_set_level(RODA1_ENABLE, RODA_DISABLE);
-                gpio_set_level(RODA2_ENABLE, RODA_DISABLE);
+                disable_wheels();
               }
-              set_velocity(left_, right_);
             }
 
             // Print all values
@@ -891,15 +540,14 @@ static void gatts_profile_a_event_handler(esp_gatts_cb_event_t event, esp_gatt_i
                  param->connect.remote_bda[3], param->connect.remote_bda[4], param->connect.remote_bda[5]);
         gl_profile_tab[PROFILE_A_APP_ID].conn_id = param->connect.conn_id;
         //start sent the update connection parameters to the peer device.
+        set_angle(0);
         esp_ble_gap_update_conn_params(&conn_params);
         break;
     }
     case ESP_GATTS_DISCONNECT_EVT:
         ESP_LOGI(GATTS_TAG, "ESP_GATTS_DISCONNECT_EVT");
-        ESP_LOGI(GATTS_TAG, "setando duty cycle, motor1: %d", 0);
-        ESP_LOGI(GATTS_TAG, "setando duty cycle, motor2: %d", 0);
-        mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 0.0);
-        mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 0.0);
+        set_duty_esc(0.0, 0.0);
+        disable_wheels();
         esp_ble_gap_start_advertising(&adv_params);
         break;
     case ESP_GATTS_CONF_EVT:
@@ -945,143 +593,6 @@ static void gatts_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_t gatts_
             }
         }
     } while (0);
-}
-
-void pwm_gpio_initialize()
-{
-  mcpwm_gpio_init(MCPWM_UNIT_0, MCPWM0A, MOTOR1_GPIO);
-  mcpwm_gpio_init(MCPWM_UNIT_0, MCPWM0B, MOTOR2_GPIO);
-  mcpwm_config_t pwm_config;
-  pwm_config.frequency = PWM_FREQUENCY;
-  pwm_config.cmpr_a = 0;    //duty cycle of PWMxA = 0
-  pwm_config.cmpr_b = 0;    //duty cycle of PWMxb = 0
-  pwm_config.counter_mode = MCPWM_UP_COUNTER;
-  pwm_config.duty_mode = MCPWM_DUTY_MODE_0;
-  mcpwm_init(MCPWM_UNIT_0, MCPWM_TIMER_0, &pwm_config);
-}
-
-void motor_calibration()
-{
-  /*
-  vTaskDelay(pdMS_TO_TICKS(2000));
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 254.0/255.0*100);
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 254.0/255.0*100);
-
-  vTaskDelay(pdMS_TO_TICKS(8000));
-  // log: modo de programacao
-  ESP_LOGI(GATTS_TAG, "Modo de programação.");
-  vTaskDelay(pdMS_TO_TICKS(500));
-
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 1.0/255.0*100);
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 1.0/255.0*100);
-  vTaskDelay(pdMS_TO_TICKS(1500));
-
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 254.0/255.0*100);
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 254.0/255.0*100);
-  vTaskDelay(pdMS_TO_TICKS(2000));
-
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 1.0/255.0*100);
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 1.0/255.0*100);
-  vTaskDelay(pdMS_TO_TICKS(1000));
-  */
-
-  /* Reset */
-  /*
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 100.0);
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 100.0);
-  vTaskDelay(pdMS_TO_TICKS(1000));
-  
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 0.0);
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 0.0);
-  vTaskDelay(pdMS_TO_TICKS(1000));
-
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 50.0);
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 50.0);
-  vTaskDelay(pdMS_TO_TICKS(1000));
-  */
-
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 51.0);
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 51.0);
-  vTaskDelay(pdMS_TO_TICKS(1000));
-
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, 50.0);
-  mcpwm_set_duty(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_B, 50.0);
-  vTaskDelay(pdMS_TO_TICKS(1000));
-  
-  // log: done!
-  ESP_LOGI(GATTS_TAG, "Done!");
-}
-
-void stepMotor_initialize()
-{
-  gpio_config_t io_conf;
-  //disable interrupt
-  io_conf.intr_type = GPIO_PIN_INTR_DISABLE;
-  //set as output mode
-  io_conf.mode = GPIO_MODE_OUTPUT;
-  //bit mask of the pins that you want to set,e.g.GPIO18/19
-  io_conf.pin_bit_mask = GPIO_OUTPUT_PIN_SEL;
-  //disable pull-down mode
-  io_conf.pull_down_en = 0;
-  //disable pull-up mode
-  io_conf.pull_up_en = 0;
-  //configure GPIO with the given settings
-  gpio_config(&io_conf);
-
-  mcpwm_gpio_init(MCPWM_UNIT_1, MCPWM1A, PWM_STEPMOTOR);
-  mcpwm_config_t pwm_config;
-  pwm_config.frequency = PWM_STEPMOTOR_FREQUENCY;
-  pwm_config.cmpr_a = 50;    //duty cycle of PWMxA = 0
-  pwm_config.counter_mode = MCPWM_UP_COUNTER;
-  pwm_config.duty_mode = MCPWM_DUTY_MODE_0;
-  mcpwm_init(MCPWM_UNIT_1, MCPWM_TIMER_1, &pwm_config);
-
-  stepMotor(thisStep);
-}
-
-void wheelMotor_initialize()
-{
-  gpio_config_t io_conf;
-  //disable interrupt
-  io_conf.intr_type = GPIO_PIN_INTR_DISABLE;
-  //set as output mode
-  io_conf.mode = GPIO_MODE_OUTPUT;
-  //bit mask of the pins that you want to set,e.g.GPIO18/19
-  io_conf.pin_bit_mask = RODA1_OUTPUT_PIN_SEL;
-  //disable pull-down mode
-  io_conf.pull_down_en = 0;
-  //disable pull-up mode
-  io_conf.pull_up_en = 0;
-  //configure GPIO with the given settings
-  gpio_config(&io_conf);
-
-  //disable interrupt
-  io_conf.intr_type = GPIO_PIN_INTR_DISABLE;
-  //set as output mode
-  io_conf.mode = GPIO_MODE_OUTPUT;
-  //bit mask of the pins that you want to set,e.g.GPIO18/19
-  io_conf.pin_bit_mask = RODA2_OUTPUT_PIN_SEL;
-  //disable pull-down mode
-  io_conf.pull_down_en = 0;
-  //disable pull-up mode
-  io_conf.pull_up_en = 0;
-  //configure GPIO with the given settings
-  gpio_config(&io_conf);
-
-  // Enable signals
-  gpio_set_level(RODA1_ENABLE, 0);
-  gpio_set_level(RODA2_ENABLE, 0);
-  
-  // PWM signals
-  mcpwm_gpio_init(MCPWM_UNIT_1, MCPWM0A, RODA1_PWM);
-  mcpwm_gpio_init(MCPWM_UNIT_1, MCPWM0B, RODA2_PWM);
-  mcpwm_config_t pwm_config;
-  pwm_config.frequency = 2000;
-  pwm_config.cmpr_a = 0;    //duty cycle of PWMxA = 0
-  pwm_config.cmpr_b = 0;    //duty cycle of PWMxA = 0
-  pwm_config.counter_mode = MCPWM_UP_COUNTER;
-  pwm_config.duty_mode = MCPWM_DUTY_MODE_0;
-  mcpwm_init(MCPWM_UNIT_1, MCPWM_TIMER_0, &pwm_config);  
 }
 
 void app_main()
@@ -1154,15 +665,7 @@ void app_main()
     if (local_mtu_ret){
         ESP_LOGE(GATTS_TAG, "set local  MTU failed, error code = %x", local_mtu_ret);
     }
-
-    // NBIPS bips to assert that everything is fine (DELAY_BIPS ms between bips)
-    for (int i = 0; i < NBIPS; ++i) {
-      mcpwm_set_duty(MCPWM_UNIT_1, MCPWM_TIMER_1, MCPWM_OPR_A, 0.0);
-      vTaskDelay(pdMS_TO_TICKS(DELAY_BIPS));
-      mcpwm_set_duty(MCPWM_UNIT_1, MCPWM_TIMER_1, MCPWM_OPR_A, 50.0);
-      stepMotor(thisStep); // this may not be necessary
-    }
+    assert_running();
     
-
     return;
 }

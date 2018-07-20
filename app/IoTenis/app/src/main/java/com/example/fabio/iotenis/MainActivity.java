@@ -18,14 +18,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.SeekBar;
 import android.widget.SimpleExpandableListAdapter;
@@ -370,8 +375,10 @@ public class MainActivity extends AppCompatActivity {
         private SeekBar duty_cycle_down;
         private TextView duty_cycle_text_up;
         private TextView duty_cycle_text_down;
-        private SeekBar angle;
-        private TextView angle_text;
+        private EditText steps_given;
+        private CheckBox move_stepmotor;
+        //private SeekBar angle;
+        //private TextView angle_text;
 
         public PlaceholderFragment() {
         }
@@ -396,12 +403,14 @@ public class MainActivity extends AppCompatActivity {
             duty_cycle_down = (SeekBar) rootView.findViewById(R.id.curpercent_motor2);
             duty_cycle_text_up = (TextView) rootView.findViewById(R.id.curpercent_motor1_text);
             duty_cycle_text_down = (TextView) rootView.findViewById(R.id.curpercent_motor2_text);
-            angle = (SeekBar) rootView.findViewById(R.id.angleSeekBar);
-            angle_text = (TextView) rootView.findViewById(R.id.cur_angle);
+            steps_given = (EditText) rootView.findViewById(R.id.steps_given);
+            move_stepmotor = (CheckBox) rootView.findViewById(R.id.move_stepmotor);
+            //angle = (SeekBar) rootView.findViewById(R.id.angleSeekBar);
+            //angle_text = (TextView) rootView.findViewById(R.id.cur_angle);
 
             duty_cycle_text_up.setText(String.valueOf(duty_cycle_up.getProgress()));
             duty_cycle_text_down.setText(String.valueOf(duty_cycle_down.getProgress()));
-            angle_text.setText(String.valueOf(angle.getProgress()));
+            //angle_text.setText(String.valueOf(angle.getProgress()));
 
             duty_cycle_up.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 int progress = 0;
@@ -418,7 +427,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
                     duty_cycle_text_up.setText(String.valueOf(progress));
-                    send_info_to_ESP(duty_cycle_up.getProgress(), duty_cycle_down.getProgress(), angle.getProgress());
+                    int steps = 0;
+                    if (move_stepmotor.isChecked())
+                        steps = Integer.parseInt(steps_given.getText().toString());
+                    send_info_to_ESP(duty_cycle_up.getProgress(), duty_cycle_down.getProgress(), steps);
                 }
             });
 
@@ -437,10 +449,36 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
                     duty_cycle_text_down.setText(String.valueOf(progress));
-                    send_info_to_ESP(duty_cycle_up.getProgress(), duty_cycle_down.getProgress(), angle.getProgress());
+                    int steps = 0;
+                    if (move_stepmotor.isChecked())
+                        steps = Integer.parseInt(steps_given.getText().toString());
+                    send_info_to_ESP(duty_cycle_up.getProgress(), duty_cycle_down.getProgress(), steps);
                 }
             });
 
+            steps_given.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        if (move_stepmotor.isChecked()) {
+                            int steps = Integer.parseInt(steps_given.getText().toString());
+                            send_info_to_ESP(duty_cycle_up.getProgress(), duty_cycle_down.getProgress(), steps);
+                        }
+                    }
+                    return false;
+                }
+            });
+
+            move_stepmotor.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int steps = Integer.parseInt(steps_given.getText().toString());
+                    if (move_stepmotor.isChecked())
+                        send_info_to_ESP(duty_cycle_up.getProgress(), duty_cycle_down.getProgress(), steps);
+                }
+            });
+
+            /*
             angle.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 int progress = 0;
 
@@ -459,6 +497,7 @@ public class MainActivity extends AppCompatActivity {
                     send_info_to_ESP(duty_cycle_up.getProgress(), duty_cycle_down.getProgress(), angle.getProgress());
                 }
             });
+            */
             //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
